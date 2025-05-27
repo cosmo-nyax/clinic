@@ -11,6 +11,7 @@
       background-color: #fef6e9;
       height: 100%;
     }
+
     .container {
       position: relative;
       width: 100%;
@@ -18,43 +19,45 @@
       margin: 0 auto;
       overflow: hidden;
     }
+
     .main-image {
       width: 100%;
       height: auto;
       display: block;
       image-rendering: auto;
     }
+
     .button-link {
       position: absolute;
       left: 50%;
-      bottom: 35%;
+      bottom: 32%; /* 少し下げると押しやすい */
       transform: translateX(-50%);
-      width: 70%;
-      height: 50px;
+      width: 75%;
+      height: 80px; /* ← タップ範囲広げた！ */
       z-index: 10;
     }
 
-    /* グリッチ演出 */
+    /* グリッチ演出（bodyにも適用） */
     .glitching {
-      animation: glitch 0.4s steps(2, end);
+      animation: glitch 0.3s steps(2, end);
     }
 
     @keyframes glitch {
       0% { transform: translate(0, 0); }
-      10% { transform: translate(-2px, 2px); }
-      20% { transform: translate(2px, -2px); }
-      30% { transform: translate(-2px, -1px); }
-      40% { transform: translate(2px, 1px); }
-      50% { transform: translate(-1px, -2px); }
-      60% { transform: translate(1px, 2px); }
-      70% { transform: translate(-2px, 2px); }
-      80% { transform: translate(2px, -2px); }
-      90% { transform: translate(-1px, 1px); }
+      10% { transform: translate(-3px, 2px); }
+      20% { transform: translate(3px, -3px); }
+      30% { transform: translate(-2px, -2px); }
+      40% { transform: translate(2px, 2px); }
+      50% { transform: translate(-3px, 1px); }
+      60% { transform: translate(2px, -3px); }
+      70% { transform: translate(-1px, -2px); }
+      80% { transform: translate(3px, 2px); }
+      90% { transform: translate(-2px, 1px); }
       100% { transform: translate(0, 0); }
     }
   </style>
 </head>
-<body>
+<body id="body">
   <div class="container" id="main">
     <img
       src="cosmo-nyax-clinic.png"
@@ -72,8 +75,13 @@
   <script>
     function glitchThenGo(e) {
       e.preventDefault();
+      const body = document.getElementById("body");
       const main = document.getElementById("main");
+
+      // 画面全体にグリッチエフェクトをかける
+      body.classList.add("glitching");
       main.classList.add("glitching");
+
       setTimeout(() => {
         window.location.href = e.currentTarget.href;
       }, 400);
