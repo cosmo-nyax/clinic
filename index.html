@@ -25,35 +25,30 @@
       height: auto;
       display: block;
       image-rendering: auto;
+      transition: filter 0.1s;
     }
 
     .button-link {
       position: absolute;
       left: 50%;
-      bottom: 32%; /* 少し下げると押しやすい */
+      bottom: 32%;
       transform: translateX(-50%);
       width: 75%;
-      height: 80px; /* ← タップ範囲広げた！ */
+      height: 80px;
       z-index: 10;
     }
 
-    /* グリッチ演出（bodyにも適用） */
-    .glitching {
-      animation: glitch 0.3s steps(2, end);
+    /* 視覚的なノイズ追加 */
+    .glitching .main-image {
+      animation: glitchVisual 0.3s steps(3, end);
     }
 
-    @keyframes glitch {
-      0% { transform: translate(0, 0); }
-      10% { transform: translate(-3px, 2px); }
-      20% { transform: translate(3px, -3px); }
-      30% { transform: translate(-2px, -2px); }
-      40% { transform: translate(2px, 2px); }
-      50% { transform: translate(-3px, 1px); }
-      60% { transform: translate(2px, -3px); }
-      70% { transform: translate(-1px, -2px); }
-      80% { transform: translate(3px, 2px); }
-      90% { transform: translate(-2px, 1px); }
-      100% { transform: translate(0, 0); }
+    @keyframes glitchVisual {
+      0% { filter: none; }
+      25% { filter: contrast(2) brightness(1.5); }
+      50% { filter: hue-rotate(20deg) blur(1px); }
+      75% { filter: contrast(0.5) brightness(1.2); }
+      100% { filter: none; }
     }
   </style>
 </head>
@@ -78,13 +73,12 @@
       const body = document.getElementById("body");
       const main = document.getElementById("main");
 
-      // 画面全体にグリッチエフェクトをかける
       body.classList.add("glitching");
       main.classList.add("glitching");
 
       setTimeout(() => {
-        window.location.href = e.currentTarget.href;
-      }, 400);
+        window.location.assign(e.currentTarget.href);
+      }, 400); // スマホ対策で assign を使用
     }
   </script>
 </body>
