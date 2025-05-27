@@ -67,20 +67,42 @@
     ></a>
   </div>
 
-  <a href="javascript:void(0)" class="button-link" onclick="glitchThenGo()"></a>
+ <a href="javascript:void(0)" class="button-link" onclick="glitchThenDestroy()"></a>
+
+<style>
+  .fadeout {
+    animation: fadeout 0.4s ease-out forwards;
+  }
+
+  @keyframes fadeout {
+    0% { filter: none; opacity: 1; }
+    25% { filter: contrast(2) blur(1px); }
+    50% { filter: hue-rotate(30deg) brightness(1.5); }
+    75% { filter: grayscale(1) blur(2px); opacity: 0.8; }
+    100% { filter: brightness(10); opacity: 0; }
+  }
+</style>
 
 <script>
-  function glitchThenGo() {
+  function glitchThenDestroy() {
     const body = document.getElementById("body");
     const main = document.getElementById("main");
 
+    // 揺れ＆視覚ノイズ
     body.classList.add("glitching");
     main.classList.add("glitching");
 
+    // 少し遅れて全体フェードアウト
+    setTimeout(() => {
+      main.classList.add("fadeout");
+    }, 200);
+
+    // 0.6秒後にSTUDIOへ遷移
     setTimeout(() => {
       window.location.href = "https://blue036152.studio.site";
-    }, 400);
+    }, 600);
   }
 </script>
+
 </body>
 </html>
