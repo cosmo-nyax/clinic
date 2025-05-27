@@ -67,19 +67,20 @@
     ></a>
   </div>
 
-  <script>
-    function glitchThenGo(e) {
-      e.preventDefault();
-      const body = document.getElementById("body");
-      const main = document.getElementById("main");
+  <a href="javascript:void(0)" class="button-link" onclick="glitchThenGo()"></a>
 
-      body.classList.add("glitching");
-      main.classList.add("glitching");
+<script>
+  function glitchThenGo() {
+    const body = document.getElementById("body");
+    const main = document.getElementById("main");
 
-      setTimeout(() => {
-        window.location.assign(e.currentTarget.href);
-      }, 400); // スマホ対策で assign を使用
-    }
-  </script>
+    body.classList.add("glitching");
+    main.classList.add("glitching");
+
+    setTimeout(() => {
+      window.location.href = "https://blue036152.studio.site";
+    }, 400);
+  }
+</script>
 </body>
 </html>
