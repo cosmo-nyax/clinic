@@ -8,7 +8,7 @@
     html, body {
       margin: 0;
       padding: 0;
-      background-color: #fdfaf6;
+      background-color: #fef6e9;
       height: 100%;
     }
     .container {
@@ -16,6 +16,7 @@
       width: 100%;
       max-width: 480px;
       margin: 0 auto;
+      overflow: hidden;
     }
     .main-image {
       width: 100%;
@@ -32,24 +33,51 @@
       height: 50px;
       z-index: 10;
     }
-    body {
-  margin: 0;
-  background-color: #FEF6E9;
-}
+
+    /* グリッチ演出 */
+    .glitching {
+      animation: glitch 0.4s steps(2, end);
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0, 0); }
+      10% { transform: translate(-2px, 2px); }
+      20% { transform: translate(2px, -2px); }
+      30% { transform: translate(-2px, -1px); }
+      40% { transform: translate(2px, 1px); }
+      50% { transform: translate(-1px, -2px); }
+      60% { transform: translate(1px, 2px); }
+      70% { transform: translate(-2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+      90% { transform: translate(-1px, 1px); }
+      100% { transform: translate(0, 0); }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="main">
     <img
-  src="cosmo-nyax-clinic.png"
-  alt="診察室"
-  class="main-image"
-/>
+      src="cosmo-nyax-clinic.png"
+      alt="診察室"
+      class="main-image"
+    />
     <a
       href="https://blue036152.studio.site"
       class="button-link"
       title="診察をはじめる"
+      onclick="glitchThenGo(event)"
     ></a>
   </div>
+
+  <script>
+    function glitchThenGo(e) {
+      e.preventDefault();
+      const main = document.getElementById("main");
+      main.classList.add("glitching");
+      setTimeout(() => {
+        window.location.href = e.currentTarget.href;
+      }, 400);
+    }
+  </script>
 </body>
 </html>
