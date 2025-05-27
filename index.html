@@ -85,3 +85,19 @@
       const image = document.querySelector(".main-image");
 
       // グリッチ揺れ
+      body.classList.add("glitching");
+      main.classList.add("glitching");
+
+      // 白飛びアニメ：画像に直接適用！
+      setTimeout(() => {
+        if (image) image.classList.add("fadeout");
+      }, 200);
+
+      // 遷移
+      setTimeout(() => {
+        window.location.href = "https://blue036152.studio.site";
+      }, 700);
+    }
+  </script>
+</body>
+</html>
