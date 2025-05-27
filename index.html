@@ -38,7 +38,6 @@
       z-index: 10;
     }
 
-    /* 視覚的なノイズ追加 */
     .glitching .main-image {
       animation: glitchVisual 0.3s steps(3, end);
     }
@@ -50,56 +49,39 @@
       75% { filter: contrast(0.5) brightness(1.2); }
       100% { filter: none; }
     }
+
+    .fadeout {
+      animation: fadeout 0.6s ease-out forwards;
+    }
+
+    @keyframes fadeout {
+      0% { filter: none; opacity: 1; }
+      25% { filter: contrast(2) blur(1px); }
+      50% { filter: hue-rotate(30deg) brightness(1.5); }
+      75% { filter: grayscale(1) blur(3px); opacity: 0.8; }
+      100% { filter: brightness(10); opacity: 0; }
+    }
   </style>
 </head>
 <body id="body">
   <div class="container" id="main">
+    <img
+      src="cosmo-nyax-clinic.png"
+      alt="診察室"
+      class="main-image"
+    />
     <a
-      href="https://blue036152.studio.site"
+      href="javascript:void(0)"
       class="button-link"
       title="診察をはじめる"
-      onclick="glitchThenGo(event)"
+      onclick="glitchThenDestroy()"
     ></a>
   </div>
 
- <a href="javascript:void(0)" class="button-link" onclick="glitchThenDestroy()"></a>
+  <script>
+    function glitchThenDestroy() {
+      const body = document.getElementById("body");
+      const main = document.getElementById("main");
+      const image = document.querySelector(".main-image");
 
-<style>
-  .fadeout {
-    animation: fadeout 0.6s ease-out forwards;
-  }
-
-  @keyframes fadeout {
-    0% { filter: none; opacity: 1; }
-    25% { filter: contrast(2) blur(1px); }
-    50% { filter: hue-rotate(30deg) brightness(1.5); }
-    75% { filter: grayscale(1) blur(3px); opacity: 0.8; }
-    100% { filter: brightness(10); opacity: 0; }
-  }
-</style>
-
-<script>
-  function glitchThenDestroy() {
-    const body = document.getElementById("body");
-    const main = document.getElementById("main");
-    const image = document.querySelector(".main-image");
-
-    // グリッチ揺れ
-    body.classList.add("glitching");
-    main.classList.add("glitching");
-
-    // 白飛びアニメ：画像に直接適用！
-    setTimeout(() => {
-      image.classList.add("fadeout");
-    }, 200);
-
-    // 遷移
-    setTimeout(() => {
-      window.location.href = "https://blue036152.studio.site";
-    }, 700);
-  }
-</script>
-
-
-</body>
-</html>
+      // グリッチ揺れ
