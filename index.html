@@ -38,18 +38,21 @@
       z-index: 10;
     }
 
-    .glitching .main-image {
-      animation: glitchVisual 0.3s steps(3, end);
+    /* 🔧 画面全体を揺らすグリッチCSS */
+    .glitching {
+      animation: screenGlitch 0.3s steps(2, end);
     }
 
-    @keyframes glitchVisual {
-      0% { filter: none; }
-      25% { filter: contrast(2) brightness(1.5); }
-      50% { filter: hue-rotate(20deg) blur(1px); }
-      75% { filter: contrast(0.5) brightness(1.2); }
-      100% { filter: none; }
+    @keyframes screenGlitch {
+      0% { transform: translate(0, 0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(2px, -2px); }
+      60% { transform: translate(-1px, 1px); }
+      80% { transform: translate(1px, -1px); }
+      100% { transform: translate(0, 0); }
     }
 
+    /* 🔧 白飛び崩壊 */
     .fadeout {
       animation: fadeout 0.6s ease-out forwards;
     }
@@ -81,19 +84,17 @@
   <script>
     function glitchThenDestroy() {
       const body = document.getElementById("body");
-      const main = document.getElementById("main");
       const image = document.querySelector(".main-image");
 
-      // グリッチ揺れ
+      // ✅ グリッチ揺れ（bodyにかける）
       body.classList.add("glitching");
-      main.classList.add("glitching");
 
-      // 白飛びアニメ：画像に直接適用！
+      // ✅ 白飛びアニメ（画像にかける）
       setTimeout(() => {
-        if (image) image.classList.add("fadeout");
+        image.classList.add("fadeout");
       }, 200);
 
-      // 遷移
+      // ✅ ページ遷移
       setTimeout(() => {
         window.location.href = "https://blue036152.studio.site";
       }, 700);
